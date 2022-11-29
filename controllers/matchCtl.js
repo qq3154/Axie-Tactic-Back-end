@@ -37,6 +37,23 @@ const matchController = {
       res.status(500).json(err.msg);
     }
   },
+
+  getall: async (req, res) => {
+    try {
+      const matches = await Match.find({ user: req.userId }).populate("user", [
+        "username",
+      ]);
+      res.status(200).json({
+        success: true,
+        matches,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
 };
 
 module.exports = matchController;

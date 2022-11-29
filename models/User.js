@@ -6,6 +6,8 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
+    maxlength: 24,
   },
   password: {
     type: String,
@@ -14,10 +16,14 @@ const UserSchema = new Schema({
   fullName: {
     type: String,
     required: true,
+    trim: true,
+    maxlength: 30,
   },
   email: {
     type: String,
     required: true,
+    trim: true,
+    unique: true,
   },
   role: {
     type: Number,

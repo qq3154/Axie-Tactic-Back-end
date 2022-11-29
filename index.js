@@ -28,9 +28,9 @@ mongoose.connect(
 
 app.get("/", (req, res) => res.send("hello world"));
 app.use("/api/auth", authRouter);
-app.use("/api/matchs", matchRouter);
+app.use("/api/match", matchRouter);
 app.use("/api/user", userhRouter);
-app.use("/api/cards", cardhRouter);
+app.use("/api/card", cardhRouter);
 
 const PORT = process.env.PORT || 5000;
 

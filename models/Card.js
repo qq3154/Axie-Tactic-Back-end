@@ -5,9 +5,11 @@ const CardSchema = new Schema({
   name: {
     type: String,
     required: true,
+    maxlength: 24,
   },
   description: {
     type: String,
+    maxlength: 120,
   },
   level: {
     type: Number,

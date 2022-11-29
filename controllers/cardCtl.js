@@ -13,9 +13,9 @@ const cardController = {
       const cards = await Card.find({ user: req.userId }).populate("user", [
         "username",
       ]);
-      res.status(500).json({
+      res.status(200).json({
         success: true,
-        posts,
+        cards,
       });
     } catch (error) {
       res.status(500).json({

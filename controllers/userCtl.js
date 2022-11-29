@@ -117,6 +117,15 @@ const userController = {
       res.status(500).json(err.msg);
     }
   },
+
+  get: async (req, res) => {
+    try {
+      const user = await User.findOne({ userId: req.userId });
+      return res.status(200).json({ success: true, user });
+    } catch (err) {
+      res.status(500).json(err.msg);
+    }
+  },
 };
 
 module.exports = userController;
