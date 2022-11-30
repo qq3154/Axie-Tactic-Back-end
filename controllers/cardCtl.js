@@ -75,7 +75,7 @@ const cardController = {
     const { id, cost } = req.body;
     try {
       const card = await Card.findOne({ _id: id });
-      const user = await User.findOne({ userId: req.userId });
+      const user = await User.findOne({ _id: req.userId });
 
       if (!card) {
         return res.status(500).json({
@@ -91,18 +91,39 @@ const cardController = {
         });
       }
 
+      if (card.user != user._id) {
+        return res.status(500).json({
+          success: false,
+          message: "you don't have authorization to level up",
+        });
+      }
+
       if (card.level == card.maxlevel) {
         return res.status(400).json({
           success: false,
           message: "Already max level",
         });
       }
+
       if (cost > user.gold) {
         return res.status(400).json({
           success: false,
           message: "Not enough gold",
         });
       }
+
+      let updatedCard = {
+        level: card.level + 1,
+      };
+
+      const cardUpdateCondition = { _id: id };
+      updatedCard = await Card.findOneAndUpdate(
+        cardUpdateCondition,
+        updatedCard,
+        {
+          new: true,
+        }
+      );
 
       let updatedUser = {
         gold: user.gold - cost,

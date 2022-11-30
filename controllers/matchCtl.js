@@ -40,9 +40,9 @@ const matchController = {
 
   getall: async (req, res) => {
     try {
-      const matches = await Match.find({ user: req.userId }).populate("user", [
-        "username",
-      ]);
+      const matches = await Match.find({
+        $or: [{ winner: req.userId }, { loser: req.userId }],
+      });
       res.status(200).json({
         success: true,
         matches,
