@@ -18,9 +18,9 @@ router.put("/changepassword", verifyToken, userController.updatePassword);
 // @access private
 router.put("/changegold", verifyToken, userController.updateGold);
 
-// @router GET /api/user/profile
+// @router GET /api/user/
 // @get user
 // @access private
-router.get("/profile", verifyToken, userController.get);
+router.get("/", verifyToken, userController.get);
 
 module.exports = router;
