@@ -50,9 +50,9 @@ const userController = {
 
       return res
         .status(200)
-        .json({ success: true, message: "Update successful!" });
+        .json({ success: true, message: "Update profile successful!" });
     } catch (err) {
-      res.status(500).json(err.msg);
+      res.status(500).json({ success: false, message: err.msg });
     }
   },
 

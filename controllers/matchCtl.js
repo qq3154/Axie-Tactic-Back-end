@@ -42,7 +42,9 @@ const matchController = {
     try {
       const matches = await Match.find({
         $or: [{ winner: req.userId }, { loser: req.userId }],
-      });
+      })
+        .populate("winner", ["username", "fullName"])
+        .populate("loser", ["username", "fullName"]);
       res.status(200).json({
         success: true,
         matches,

@@ -8,7 +8,7 @@ const User = require("../models/User");
 
 const authController = {
   register: async (req, res) => {
-    const { username, password, fullName, email, role, gold } = req.body;
+    const { username, password, fullName, email } = req.body;
     if (!username) {
       return res
         .status(400)
@@ -27,16 +27,22 @@ const authController = {
     if (!email) {
       return res.status(400).json({ success: false, message: "Missing email" });
     }
-    if (!role) {
-      return res.status(400).json({ success: false, message: "Missing role" });
-    }
+
     try {
       //check for username already exists
       const user = await User.findOne({ username });
       if (user) {
         return res
           .status(400)
-          .json({ success: false, message: "username already exists" });
+          .json({ success: false, message: "Username already exists" });
+      }
+
+      //check for email already used
+      const emailExist = await User.findOne({ email: email });
+      if (emailExist) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Email already used!" });
       }
 
       //all good
@@ -46,8 +52,8 @@ const authController = {
         password: hashesPassword,
         fullName,
         email,
-        role,
-        gold,
+        role: 1,
+        gold: 0,
       });
       await newUser.save();
 
@@ -58,7 +64,7 @@ const authController = {
       );
       res.json({
         success: true,
-        message: "Register successfully",
+        message: "Register successful!",
         accessToken,
       });
     } catch (err) {
@@ -100,7 +106,7 @@ const authController = {
       );
       res.json({
         success: true,
-        message: "Loggin successfully",
+        message: "Loggin successful!",
         accessToken,
       });
     } catch (error) {
