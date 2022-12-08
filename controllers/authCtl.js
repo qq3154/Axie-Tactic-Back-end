@@ -53,7 +53,7 @@ const authController = {
         fullName,
         email,
         role: 1,
-        gold: 0,
+        gold: 500,
       });
       await newUser.save();
 

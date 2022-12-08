@@ -91,10 +91,10 @@ const cardController = {
         });
       }
 
-      if (card.user != user._id) {
+      if (card.user != user.id) {
         return res.status(500).json({
           success: false,
-          message: "you don't have authorization to level up",
+          message: "You don't have authorization to level up",
         });
       }
 
@@ -108,7 +108,7 @@ const cardController = {
       if (cost > user.gold) {
         return res.status(400).json({
           success: false,
-          message: "Not enough gold",
+          message: "You need at least 100 gold to level up",
         });
       }
 
@@ -140,7 +140,7 @@ const cardController = {
 
       return res.status(200).json({
         success: true,
-        message: "Levelup success",
+        message: "Upgrade successful!",
       });
     } catch (error) {
       res.status(500).json({
